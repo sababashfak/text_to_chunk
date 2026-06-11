@@ -1,12 +1,17 @@
 import pymupdf
-from pathlib import Path
-import os
 
-base_dir = Path.home()
-CURRENT_DIR = Path(__file__).resolve().parent
+def extract_plain_text(pdf_path):
+    doc = pymupdf.open(pdf_path)
+    full_text = ""
+    
+    for page in doc:
+        # Append text from each page with a newline
+        full_text += page.get_text("text") + "\n"
+        
+    doc.close()
+    return full_text  # Return the combined text
 
-doc = pymupdf.open()
 
-print(f"Base Dir: {base_dir}")
-print(f"Current Dir: {CURRENT_DIR}")
-print("Success")
+
+
+
